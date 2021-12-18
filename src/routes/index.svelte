@@ -22,11 +22,11 @@
 	);
 
 	function login() {
-		user.auth(username, password, ({ err }) => err && alert(err) && statusMessage.set(err));
+		user.auth(usernameInput, passwordInput, ({ err }) => err && alert(err) && statusMessage.set(err));
 	}
 
 	function signup() {
-		user.create(username, password, ({ err }) => {
+		user.create(usernameInput, passwordInput, ({ err }) => {
 			if (err) {
 				alert(err);
 			} else {
@@ -87,13 +87,14 @@
 			/>
 			<div
 				class="text-center mx-auto border-2 bg-black text-white font-bold w-max py-1 px-3 rounded border-black hover:bg-white hover:text-black m-2 cursor-pointer transition-all duration-500  "
-			>
+			  on:click={login}
+        >
 				log in
 			</div>
 			<p />
 			<div
 				class="text-center mx-auto border-2 bg-black text-white font-bold w-max py-1 px-3 rounded border-black hover:bg-white hover:text-black m-2 cursor-pointer transition-all duration-500  "
-				on:click={login}
+				on:click={signup}
 			>
 				register
 			</div>
