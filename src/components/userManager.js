@@ -1,5 +1,5 @@
-import Gun from 'gun/gun';
-import 'gun/sea';
+import Gun from 'gun/gun.js';
+import 'gun/sea.js';
 import { writable } from 'svelte/store';
 
 
