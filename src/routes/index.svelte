@@ -41,6 +41,8 @@
 <div class="p-2 m-2  md:mx-auto container">
 	<Header />
 	<Login />
+	<div class="text-center text-4xl">We're not!<br>❌</div>
+	<p class=" border-4 rounded border-black w-max mx-auto p-2 m-3 bg-red-500 text-white text-center italic">Status: BrickPlanet has not been released yet. Thus no data.</p>
 	{#each categories as { id, name, emojis, description, updates, isOpen }, i}
 		<div class="border-black border-2 p-2  my-1">
 			<div class="text-2xl  text-center select-none" class:hidden={isOpen}>
