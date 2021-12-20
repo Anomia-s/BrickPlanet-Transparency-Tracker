@@ -18,6 +18,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@zerodevx/svelte-toast": "^0.6.2",
     "gun": "^0.2020.1235"
   }
 }

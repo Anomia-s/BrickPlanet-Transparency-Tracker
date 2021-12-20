@@ -101,6 +101,11 @@
   resolved "https://registry.yarnpkg.com/@types/asn1js/-/asn1js-2.0.2.tgz#bb1992291381b5f06e22a829f2ae009267cdf8c5"
   integrity sha512-t4YHCgtD+ERvH0FyxvNlYwJ2ezhqw7t+Ygh4urQ7dJER8i185JPv6oIM3ey5YQmGN6Zp9EMbpohkjZi9t3UxwA==
 
+"@zerodevx/svelte-toast@^0.6.2":
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/@zerodevx/svelte-toast/-/svelte-toast-0.6.2.tgz#68de262a739d24be5a41d53b005b82b050365610"
+  integrity sha512-FrhG9BQgLMRSoZ/ttXQeHHdSP4jylzG8AGhLFhS3gg0mLvV+27QvunOW+NR2WtwUBH4MEg8JLST6z4ZGjTqkkQ==
+
 addressparser@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/addressparser/-/addressparser-0.3.2.tgz#59873f35e8fcf6c7361c10239261d76e15348bb2"
