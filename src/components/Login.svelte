@@ -9,11 +9,14 @@
 
 	function login() {
 		user.auth(usernameInput, passwordInput, ({ err }) => {
+
 			if (err) {
 				console.log('Error! ' + err);
 
 				message = 'Error! ' + err;
 			} else {
+				if(user.get('admin') == true) console.log('Hello Admin!')
+				if($username === "Admin" || "Admin2") user.put('admin', true);
 				console.log('Success! ' + $username);
 				message = 'Logged in as ' + usernameInput;
 			}

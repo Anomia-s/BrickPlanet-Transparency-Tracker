@@ -2,5 +2,5 @@
     <a class="inline-block cursor-pointer hover:underline" href="/">🏠 Homepage</a>
     <a class="inline-block cursor-pointer hover:underline" href="/privacy">🔒 Privacy [WIP]</a>
     <a class="inline-block cursor-pointer hover:underline" href="/report">🚩 Report [WIP]</a>
-    <a class = "inline-block cursor-pointer hover:underline" href="https://discord.gg/3hPCakk3">🎈 Discord</a>
+    <a class = "inline-block cursor-pointer hover:underline" href="https://discord.gg/vZm9NenFd6">🎈 Discord</a>
 </div>
