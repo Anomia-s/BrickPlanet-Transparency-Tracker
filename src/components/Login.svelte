@@ -6,7 +6,9 @@
 	export let passwordInput;
 	
 	let message;
-
+	let userInformation = {
+		isAdmin: false
+	}
 	function login() {
 		user.auth(usernameInput, passwordInput, ({ err }) => {
 
@@ -15,8 +17,14 @@
 
 				message = 'Error! ' + err;
 			} else {
-				if(user.get('admin') == true) console.log('Hello Admin!')
-				if($username === "Admin" || "Admin2") user.put('admin', true);
+				if(!user.get('admin') && $username === "Admin") {
+					user.put({admin: true}, callback => {
+						console.log(callback);
+						userInformation.isAdmin = true;
+					} )
+				} else {
+					console.log('Welcome back.')
+				}
 				console.log('Success! ' + $username);
 				message = 'Logged in as ' + usernameInput;
 			}
