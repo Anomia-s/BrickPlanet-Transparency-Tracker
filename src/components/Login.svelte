@@ -1,14 +1,12 @@
 <script>
-	import { user, username } from './userManager';
+	import { user, username, isAdmin } from './userManager';
 	import Navbar from './Navbar.svelte';
 	
 	export let usernameInput;
 	export let passwordInput;
 	
 	let message;
-	let userInformation = {
-		isAdmin: false
-	}
+
 	function login() {
 		user.auth(usernameInput, passwordInput, ({ err }) => {
 
@@ -17,16 +15,9 @@
 
 				message = 'Error! ' + err;
 			} else {
-				if(!user.get('admin') && $username === "Admin") {
-					user.put({admin: true}, callback => {
-						console.log(callback);
-						userInformation.isAdmin = true;
-					} )
-				} else {
-					console.log('Welcome back.')
-				}
 				console.log('Success! ' + $username);
-				message = 'Logged in as ' + usernameInput;
+				console.log('Admin: ' + $isAdmin)
+				message = 'Logged in as ' + $username;
 			}
 		});
 	}
@@ -46,6 +37,7 @@
 	function signOut() {
 		user.leave();
 		username.set('');
+		isAdmin.set(false);
 	}
 </script>
 
