@@ -3,7 +3,7 @@ import 'gun/sea.js';
 import { writable } from 'svelte/store';
 
 
-export const db = Gun();
+export const db = Gun(['https://gun-manhattan.herokuapp.com/gun']);
 export const user = db.user().recall({ sessionStorage: true });
 
 export let username = writable('');
