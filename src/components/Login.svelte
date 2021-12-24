@@ -11,13 +11,12 @@
 		user.auth(usernameInput, passwordInput, ({ err }) => {
 
 			if (err) {
-				console.log('Error! ' + err);
+				console.log('❌ Error! ' + err);
 
-				message = 'Error! ' + err;
+				message = '❌ Error! ' + err;
 			} else {
-				console.log('Success! ' + $username);
-				console.log('Admin: ' + $isAdmin)
-				message = 'Logged in as ' + $username;
+				console.log('✔️ Success! ' + $username);
+				message = '🙇 Logged in as ' + $username;
 			}
 		});
 	}
@@ -25,11 +24,11 @@
 	function signup() {
 		user.create(usernameInput, passwordInput, ({ err }) => {
 			if (err) {
-				console.log('Error! ' + err);
-				message = 'Error! ' + err;
+				console.log('❌ Error! ' + err);
+				message = '❌ Error! ' + err;
 			} else {
-				console.log(' Registered as ' + usernameInput);
-				message = 'Registered as ' + usernameInput;
+				console.log('✔️ Registered as ' + usernameInput);
+				message = '✔️ Registered as ' + usernameInput;
 			}
 		});
 	}

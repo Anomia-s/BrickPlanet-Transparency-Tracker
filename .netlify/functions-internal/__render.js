@@ -6676,16 +6676,16 @@ var init_ssr = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/layout-c2598c59.js
-var layout_c2598c59_exports = {};
-__export(layout_c2598c59_exports, {
+// .svelte-kit/output/server/chunks/layout-dbc0ba01.js
+var layout_dbc0ba01_exports = {};
+__export(layout_dbc0ba01_exports, {
   default: () => Layout
 });
 var Layout;
-var init_layout_c2598c59 = __esm({
-  ".svelte-kit/output/server/chunks/layout-c2598c59.js"() {
+var init_layout_dbc0ba01 = __esm({
+  ".svelte-kit/output/server/chunks/layout-dbc0ba01.js"() {
     init_shims();
-    init_app_95f3f930();
+    init_app_825f3e98();
     init_ssr();
     Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       return `${slots.default ? slots.default({}) : ``}`;
@@ -6693,9 +6693,9 @@ var init_layout_c2598c59 = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/error-912aa6df.js
-var error_912aa6df_exports = {};
-__export(error_912aa6df_exports, {
+// .svelte-kit/output/server/chunks/error-a32701e1.js
+var error_a32701e1_exports = {};
+__export(error_a32701e1_exports, {
   default: () => Error2,
   load: () => load
 });
@@ -6703,10 +6703,10 @@ function load({ error: error2, status }) {
   return { props: { error: error2, status } };
 }
 var Error2;
-var init_error_912aa6df = __esm({
-  ".svelte-kit/output/server/chunks/error-912aa6df.js"() {
+var init_error_a32701e1 = __esm({
+  ".svelte-kit/output/server/chunks/error-a32701e1.js"() {
     init_shims();
-    init_app_95f3f930();
+    init_app_825f3e98();
     init_ssr();
     Error2 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       let { status } = $$props;
@@ -11350,7 +11350,7 @@ var require_sea = __commonJS({
   }
 });
 
-// .svelte-kit/output/server/chunks/Header-ffd15c98.js
+// .svelte-kit/output/server/chunks/Header-ed99da1d.js
 function writable2(value, start = noop3) {
   let stop;
   const subscribers = new Set();
@@ -11392,30 +11392,45 @@ function writable2(value, start = noop3) {
   }
   return { set, update, subscribe: subscribe2 };
 }
-var import_gun, import_sea, subscriber_queue2, db, user, username, Navbar, Login, Header;
-var init_Header_ffd15c98 = __esm({
-  ".svelte-kit/output/server/chunks/Header-ffd15c98.js"() {
+var import_gun, import_sea, subscriber_queue2, db, user, username, isAdmin, Navbar, Login, Header;
+var init_Header_ed99da1d = __esm({
+  ".svelte-kit/output/server/chunks/Header-ed99da1d.js"() {
     init_shims();
-    init_app_95f3f930();
+    init_app_825f3e98();
     import_gun = __toModule(require_gun());
     import_sea = __toModule(require_sea());
     subscriber_queue2 = [];
-    db = (0, import_gun.default)();
+    db = (0, import_gun.default)({ peers: ["localhost:8000/gun"] });
+    try {
+      console.log("\u{1F4BB} Connected to persitency peer, welcome! \u{1F44B}");
+    } catch (err) {
+      console.log("\u274C Could not connect to persitency peer! \u{1F614}");
+    } finally {
+      console.log("Database initialization finished! \u{1F44D}");
+    }
     user = db.user().recall({ sessionStorage: true });
     username = writable2("");
+    isAdmin = writable2(false);
     db.on("auth", async (event) => {
       const alias = await user.get("alias");
-      console.log(`Setting alias ${alias}`);
+      await user.get("admin");
+      console.log(`Logging in as ${alias} \u{1F44B}`);
       username.set(alias);
     });
     username.subscribe((value) => {
-      console.log("EVENT!");
+      console.log(`\u{1F4BB} User state has changed to ${value} successfully \u{1F44D}`);
     });
     Navbar = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      return `<div class="${"space-x-2 mx-auto border w-max p-2"}"><a class="${"inline-block cursor-pointer hover:underline"}" href="${"/"}">\u{1F3E0} Homepage</a>
-    <a class="${"inline-block cursor-pointer hover:underline"}" href="${"/privacy"}">\u{1F512} Privacy [WIP]</a>
-    <a class="${"inline-block cursor-pointer hover:underline"}" href="${"/report"}">\u{1F6A9} Report [WIP]</a>
-    <a class="${"inline-block cursor-pointer hover:underline"}" href="${"https://discord.gg/3hPCakk3"}">\u{1F388} Discord</a></div>`;
+      let $isAdmin, $$unsubscribe_isAdmin;
+      $$unsubscribe_isAdmin = subscribe(isAdmin, (value) => $isAdmin = value);
+      let xD = db.back("opt.peers");
+      console.log("Heya~ Heres the list of peers in the database, " + Object.keys(xD));
+      $$unsubscribe_isAdmin();
+      return `<div class="${"md:space-x-2 text-center md:w-max mx-auto border w-auto p-2"}"><div class="${"md:inline-block"}"><a class="${"md:inline-block cursor-pointer hover:underline"}" href="${"/"}">\u{1F3E0} Homepage</a></div>
+    <div class="${"md:inline-block"}"><a class="${"md:inline-block cursor-pointer hover:underline"}" href="${"/privacy"}">\u{1F512} Privacy [WIP]</a></div>
+    <div class="${"md:inline-block"}"><a class="${"md:inline-block cursor-pointer hover:underline"}" href="${"/report"}">\u{1F6A9} Report [WIP]</a></div>
+    <div class="${"md:inline-block"}"><a class="${"md:inline-block cursor-pointer hover:underline"}" href="${"https://discord.gg/vZm9NenFd6"}">\u{1F388} Discord</a></div>
+    ${$isAdmin ? `<div>ADMIN</div>` : ``}</div>`;
     });
     Login = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       let $username, $$unsubscribe_username;
@@ -11457,17 +11472,17 @@ var init_Header_ffd15c98 = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/index-9a30848c.js
-var index_9a30848c_exports = {};
-__export(index_9a30848c_exports, {
+// .svelte-kit/output/server/chunks/index-cd4da402.js
+var index_cd4da402_exports = {};
+__export(index_cd4da402_exports, {
   default: () => Routes
 });
 var import_gun2, import_sea2, Routes;
-var init_index_9a30848c = __esm({
-  ".svelte-kit/output/server/chunks/index-9a30848c.js"() {
+var init_index_cd4da402 = __esm({
+  ".svelte-kit/output/server/chunks/index-cd4da402.js"() {
     init_shims();
-    init_app_95f3f930();
-    init_Header_ffd15c98();
+    init_app_825f3e98();
+    init_Header_ed99da1d();
     init_ssr();
     import_gun2 = __toModule(require_gun());
     import_sea2 = __toModule(require_sea());
@@ -11522,6 +11537,8 @@ var init_index_9a30848c = __esm({
       ];
       return `<div class="${"p-2 m-2 md:mx-auto container"}">${validate_component(Header, "Header").$$render($$result, {}, {}, {})}
 	${validate_component(Login, "Login").$$render($$result, {}, {}, {})}
+	<div class="${"text-center text-4xl"}">We&#39;re not!<br>\u274C</div>
+	<p class="${"border-4 rounded border-black w-auto mx-auto p-2 m-3 bg-red-500 text-white text-center italic"}">Status: BrickPlanet has not been released yet. Thus no data.</p>
 	${each(categories, ({ id, name, emojis, description, updates, isOpen }, i2) => `<div class="${"border-black border-2 p-2 my-1"}"><div class="${["text-2xl text-center select-none", isOpen ? "hidden" : ""].join(" ").trim()}">${escape2(emojis)}<strong>${escape2(name)}</strong>${escape2(emojis)}</div>
 
 			<div name="${"statusContainer"}" class="${""}"><div class="${"text-center italic font-thin"}">${escape2(description)}</div>
@@ -11535,17 +11552,17 @@ var init_index_9a30848c = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/privacy-f76ba9f4.js
-var privacy_f76ba9f4_exports = {};
-__export(privacy_f76ba9f4_exports, {
+// .svelte-kit/output/server/chunks/privacy-5954caa3.js
+var privacy_5954caa3_exports = {};
+__export(privacy_5954caa3_exports, {
   default: () => Privacy
 });
 var import_gun3, import_sea3, Privacy;
-var init_privacy_f76ba9f4 = __esm({
-  ".svelte-kit/output/server/chunks/privacy-f76ba9f4.js"() {
+var init_privacy_5954caa3 = __esm({
+  ".svelte-kit/output/server/chunks/privacy-5954caa3.js"() {
     init_shims();
-    init_app_95f3f930();
-    init_Header_ffd15c98();
+    init_app_825f3e98();
+    init_Header_ed99da1d();
     init_ssr();
     import_gun3 = __toModule(require_gun());
     import_sea3 = __toModule(require_sea());
@@ -11557,24 +11574,32 @@ var init_privacy_f76ba9f4 = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/chat-97a0f34c.js
-var chat_97a0f34c_exports = {};
-__export(chat_97a0f34c_exports, {
-  default: () => Chat
+// .svelte-kit/output/server/chunks/report-e12af263.js
+var report_e12af263_exports = {};
+__export(report_e12af263_exports, {
+  default: () => Report
 });
-var Chat;
-var init_chat_97a0f34c = __esm({
-  ".svelte-kit/output/server/chunks/chat-97a0f34c.js"() {
+var import_gun4, import_sea4, Report;
+var init_report_e12af263 = __esm({
+  ".svelte-kit/output/server/chunks/report-e12af263.js"() {
     init_shims();
-    init_app_95f3f930();
+    init_app_825f3e98();
+    init_Header_ed99da1d();
     init_ssr();
-    Chat = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      return ``;
+    import_gun4 = __toModule(require_gun());
+    import_sea4 = __toModule(require_sea());
+    Report = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      return `<div class="${"p-2 m-2 md:mx-auto container"}">${validate_component(Header, "Header").$$render($$result, {}, {}, {})}
+
+	${validate_component(Login, "Login").$$render($$result, {}, {}, {})}
+
+    <div class="${"mx-auto w-auto bg-red-600 text-white p-2 border-4 border-black text-center"}">How is your data processed? Learn it here! Upon BrickPlanet releasing we will display their ToS aswell as Privacy Conditions with a friendlier apporach.
+    </div></div>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/app-95f3f930.js
+// .svelte-kit/output/server/chunks/app-825f3e98.js
 function noop3() {
 }
 function run(fn) {
@@ -11680,9 +11705,9 @@ function init(settings = default_settings) {
     amp: false,
     dev: false,
     entry: {
-      file: assets + "/_app/start-086f0ac9.js",
+      file: assets + "/_app/start-cbf5bc5b.js",
       css: [assets + "/_app/assets/start-61d1577b.css"],
-      js: [assets + "/_app/start-086f0ac9.js", assets + "/_app/chunks/vendor-d135ee60.js"]
+      js: [assets + "/_app/start-cbf5bc5b.js", assets + "/_app/chunks/vendor-d135ee60.js"]
     },
     fetched: void 0,
     floc: false,
@@ -11726,8 +11751,8 @@ function render(request, {
   return respond({ ...request, host }, options, { prerender });
 }
 var current_component, escaped2, missing_component, on_destroy, css, Root, base, assets, user_hooks, template, options, default_settings, empty, manifest, get_hooks, module_lookup, metadata_lookup;
-var init_app_95f3f930 = __esm({
-  ".svelte-kit/output/server/chunks/app-95f3f930.js"() {
+var init_app_825f3e98 = __esm({
+  ".svelte-kit/output/server/chunks/app-825f3e98.js"() {
     init_shims();
     init_ssr();
     Promise.resolve();
@@ -11827,9 +11852,9 @@ ${``}`;
         },
         {
           type: "page",
-          pattern: /^\/chat\/?$/,
+          pattern: /^\/report\/?$/,
           params: empty,
-          a: [".svelte-kit/build/components/layout.svelte", "src/routes/chat.svelte"],
+          a: [".svelte-kit/build/components/layout.svelte", "src/routes/report.svelte"],
           b: [".svelte-kit/build/components/error.svelte"]
         }
       ]
@@ -11841,13 +11866,13 @@ ${``}`;
       externalFetch: hooks.externalFetch || fetch
     });
     module_lookup = {
-      ".svelte-kit/build/components/layout.svelte": () => Promise.resolve().then(() => (init_layout_c2598c59(), layout_c2598c59_exports)),
-      ".svelte-kit/build/components/error.svelte": () => Promise.resolve().then(() => (init_error_912aa6df(), error_912aa6df_exports)),
-      "src/routes/index.svelte": () => Promise.resolve().then(() => (init_index_9a30848c(), index_9a30848c_exports)),
-      "src/routes/privacy.svelte": () => Promise.resolve().then(() => (init_privacy_f76ba9f4(), privacy_f76ba9f4_exports)),
-      "src/routes/chat.svelte": () => Promise.resolve().then(() => (init_chat_97a0f34c(), chat_97a0f34c_exports))
+      ".svelte-kit/build/components/layout.svelte": () => Promise.resolve().then(() => (init_layout_dbc0ba01(), layout_dbc0ba01_exports)),
+      ".svelte-kit/build/components/error.svelte": () => Promise.resolve().then(() => (init_error_a32701e1(), error_a32701e1_exports)),
+      "src/routes/index.svelte": () => Promise.resolve().then(() => (init_index_cd4da402(), index_cd4da402_exports)),
+      "src/routes/privacy.svelte": () => Promise.resolve().then(() => (init_privacy_5954caa3(), privacy_5954caa3_exports)),
+      "src/routes/report.svelte": () => Promise.resolve().then(() => (init_report_e12af263(), report_e12af263_exports))
     };
-    metadata_lookup = { ".svelte-kit/build/components/layout.svelte": { "entry": "layout.svelte-2835525f.js", "css": [], "js": ["layout.svelte-2835525f.js", "chunks/vendor-d135ee60.js"], "styles": [] }, ".svelte-kit/build/components/error.svelte": { "entry": "error.svelte-988bbfca.js", "css": [], "js": ["error.svelte-988bbfca.js", "chunks/vendor-d135ee60.js"], "styles": [] }, "src/routes/index.svelte": { "entry": "pages/index.svelte-bd0f8ecf.js", "css": [], "js": ["pages/index.svelte-bd0f8ecf.js", "chunks/vendor-d135ee60.js", "chunks/Header-4cfd50c3.js"], "styles": [] }, "src/routes/privacy.svelte": { "entry": "pages/privacy.svelte-e38418b4.js", "css": [], "js": ["pages/privacy.svelte-e38418b4.js", "chunks/vendor-d135ee60.js", "chunks/Header-4cfd50c3.js"], "styles": [] }, "src/routes/chat.svelte": { "entry": "pages/chat.svelte-8b51e204.js", "css": [], "js": ["pages/chat.svelte-8b51e204.js", "chunks/vendor-d135ee60.js"], "styles": [] } };
+    metadata_lookup = { ".svelte-kit/build/components/layout.svelte": { "entry": "layout.svelte-eb644564.js", "css": [], "js": ["layout.svelte-eb644564.js", "chunks/vendor-d135ee60.js"], "styles": [] }, ".svelte-kit/build/components/error.svelte": { "entry": "error.svelte-cbadf136.js", "css": [], "js": ["error.svelte-cbadf136.js", "chunks/vendor-d135ee60.js"], "styles": [] }, "src/routes/index.svelte": { "entry": "pages/index.svelte-d32a5d91.js", "css": [], "js": ["pages/index.svelte-d32a5d91.js", "chunks/vendor-d135ee60.js", "chunks/Header-c601de6a.js"], "styles": [] }, "src/routes/privacy.svelte": { "entry": "pages/privacy.svelte-eb7f2579.js", "css": [], "js": ["pages/privacy.svelte-eb7f2579.js", "chunks/vendor-d135ee60.js", "chunks/Header-c601de6a.js"], "styles": [] }, "src/routes/report.svelte": { "entry": "pages/report.svelte-13cb5c61.js", "css": [], "js": ["pages/report.svelte-13cb5c61.js", "chunks/vendor-d135ee60.js", "chunks/Header-c601de6a.js"], "styles": [] } };
   }
 });
 
@@ -11860,7 +11885,7 @@ init_shims();
 // .svelte-kit/output/server/app.js
 init_shims();
 init_ssr();
-init_app_95f3f930();
+init_app_825f3e98();
 
 // .svelte-kit/netlify/entry.js
 init();
