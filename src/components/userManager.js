@@ -2,7 +2,7 @@ import Gun from 'gun/gun.js';
 import 'gun/sea.js';
 import { writable } from 'svelte/store';
 
-export const db = Gun({ peers: ['localhost:8000/gun'] });
+export const db = Gun({ peers: ['https://brickplanet-peer-1.herokuapp.com/gun'] });
 
 try {
     console.log("💻 Connected to persitency peer, welcome! 👋")
